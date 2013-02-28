@@ -1,0 +1,106 @@
+#!/usr/bin/env ruby
+
+class Manager
+
+  def pick_a_team(squad)
+    team = Team.new
+    # get the best players for every position from the squad
+    # and add them to the team
+    # for every position (goalkeeper etc)
+    # get the best player(s) from the squad
+    # team << player # add them to the team
+    team
+  end
+
+end
+
+class Coach
+
+  def calculate_form(player)
+    # player.form = 
+  end
+  
+end
+
+class Player
+
+  attr_accessor :form
+
+  def initialize(name, position, skill, injured)
+
+  end
+
+  def to_s
+    # return a string representation of the player
+    # e.g. "Defender 5, not injured, skill 4.7"
+  end
+
+
+end
+
+class Team
+
+  def initialize
+    @players = []
+  end
+
+  def <<(player)  # how to call it: team << player
+    # raise an error if we can't add the player, 
+    # e.g. if we already have the position filled
+    # raise "Can't add #{position}"
+    @players << player
+  end
+
+  def to_s
+    # return every player and their position
+    # iterate over all players and call their .to_s
+  end
+
+end
+
+class Squad
+
+  def initialize
+    @players = []    
+    @coach = Coach.new
+  end
+
+  def <<(player)   
+    @coach.calculate_form(player) 
+    @players << player
+  end
+
+  def best_player(position)
+    player = @players.select{|p| p.position == position}.sort{|p| p.form}.last
+    # what if player.nil? maybe raise an exception
+    # remove the player from @players
+    player
+  end
+
+end
+
+def squad_with_players
+  squad = Squad.new
+  2.times do |i|
+    squad << Player.new("Goalkeeper #{i}", :goalkeeper, rand(10) + 1, false)
+  end
+  8.times do |i|
+    squad << Player.new("Defender #{i}", :defender, rand(10) + 1, false)
+  end
+  8.times do |i|
+    squad << Player.new("Midfielder #{i}", :midfielder, rand(10) + 1, false)
+  end
+  4.times do |i|
+    squad << Player.new("Attacker #{i}", :attacker, rand(10) + 1, false)
+  end  
+  squad
+end
+
+squad = squad_with_players
+manager = Manager.new()
+team = manager.pick_a_team(squad)
+puts "Our chosen team:"
+puts team
+
+
+

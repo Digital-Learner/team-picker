@@ -1,0 +1,61 @@
+#<Squad:0x007fdc2d12b108 
+@players=[
+#<Player:0x007fdc2d12afc8 @name="Goalkeeper 0", @position=:goalkeeper, @skill=2, @injured=false>, 
+#<Player:0x007fdc2d12aed8 @name="Goalkeeper 1", @position=:goalkeeper, @skill=1, @injured=false>, 
+#<Player:0x007fdc2d12adc0 @name="Defender 0", @position=:defender, @skill=4, @injured=false>, 
+#<Player:0x007fdc2d12aca8 @name="Defender 1", @position=:defender, @skill=10, @injured=false>, 
+#<Player:0x007fdc2d12abe0 @name="Defender 2", @position=:defender, @skill=7, @injured=false>, 
+#<Player:0x007fdc2d12ab40 @name="Defender 3", @position=:defender, @skill=8, @injured=false>, 
+#<Player:0x007fdc2d12a898 @name="Defender 4", @position=:defender, @skill=9, @injured=false>, 
+#<Player:0x007fdc2d12a7f8 @name="Defender 5", @position=:defender, @skill=10, @injured=false>, 
+#<Player:0x007fdc2d12a730 @name="Defender 6", @position=:defender, @skill=8, @injured=false>, 
+#<Player:0x007fdc2d12a690 @name="Defender 7", @position=:defender, @skill=2, @injured=false>, 
+#<Player:0x007fdc2d12a5f0 @name="Midfielder 0", @position=:midfielder, @skill=9, @injured=false>, 
+#<Player:0x007fdc2d12a550 @name="Midfielder 1", @position=:midfielder, @skill=5, @injured=false>, 
+#<Player:0x007fdc2d12a4b0 @name="Midfielder 2", @position=:midfielder, @skill=5, @injured=false>, 
+#<Player:0x007fdc2d12a410 @name="Midfielder 3", @position=:midfielder, @skill=8, @injured=false>, 
+#<Player:0x007fdc2d12a370 @name="Midfielder 4", @position=:midfielder, @skill=8, @injured=false>, 
+#<Player:0x007fdc2d12a2d0 @name="Midfielder 5", @position=:midfielder, @skill=8, @injured=false>, 
+#<Player:0x007fdc2d12a230 @name="Midfielder 6", @position=:midfielder, @skill=4, @injured=false>, 
+#<Player:0x007fdc2d12a190 @name="Midfielder 7", @position=:midfielder, @skill=2, @injured=false>, 
+#<Player:0x007fdc2d12a0f0 @name="Attacker 0", @position=:attacker, @skill=7, @injured=false>, 
+#<Player:0x007fdc2d12a028 @name="Attacker 1", @position=:attacker, @skill=2, @injured=false>, 
+#<Player:0x007fdc2d129f60 @name="Attacker 2", @position=:attacker, @skill=3, @injured=false>, 
+#<Player:0x007fdc2d129e70 @name="Attacker 3", @position=:attacker, @skill=7, @injured=false>
+], 
+@coach=#<Coach:0x007fdc2d12b040>
+>
+
+
+
+========================
+
+
+maxes_squad = squad_with_players
+ => #<Squad:0x007fb9e5145b30 
+ @players=[
+ Player Detail: Name: Goalkeeper 0, Postion: goalkeeper, Skill: 7, Is Injured?: false, 
+ Player Detail: Name: Goalkeeper 1, Postion: goalkeeper, Skill: 3, Is Injured?: false, 
+ Player Detail: Name: Defender 0, Postion: defender, Skill: 10, Is Injured?: false, 
+ Player Detail: Name: Defender 1, Postion: defender, Skill: 10, Is Injured?: false, 
+ Player Detail: Name: Defender 2, Postion: defender, Skill: 1, Is Injured?: false, 
+ Player Detail: Name: Defender 3, Postion: defender, Skill: 8, Is Injured?: false, 
+ Player Detail: Name: Defender 4, Postion: defender, Skill: 9, Is Injured?: false, 
+ Player Detail: Name: Defender 5, Postion: defender, Skill: 4, Is Injured?: false, 
+ Player Detail: Name: Defender 6, Postion: defender, Skill: 7, Is Injured?: false, 
+ Player Detail: Name: Defender 7, Postion: defender, Skill: 6, Is Injured?: false, 
+ Player Detail: Name: Midfielder 0, Postion: midfielder, Skill: 6, Is Injured?: false, 
+ Player Detail: Name: Midfielder 1, Postion: midfielder, Skill: 6, Is Injured?: false, 
+ Player Detail: Name: Midfielder 2, Postion: midfielder, Skill: 8, Is Injured?: false, 
+ Player Detail: Name: Midfielder 3, Postion: midfielder, Skill: 7, Is Injured?: false, 
+ Player Detail: Name: Midfielder 4, Postion: midfielder, Skill: 1, Is Injured?: false, 
+ Player Detail: Name: Midfielder 5, Postion: midfielder, Skill: 3, Is Injured?: false, 
+ Player Detail: Name: Midfielder 6, Postion: midfielder, Skill: 10, Is Injured?: false, 
+ Player Detail: Name: Midfielder 7, Postion: midfielder, Skill: 7, Is Injured?: false, 
+ Player Detail: Name: Attacker 0, Postion: attacker, Skill: 9, Is Injured?: false, 
+ Player Detail: Name: Attacker 1, Postion: attacker, Skill: 7, Is Injured?: false, 
+ Player Detail: Name: Attacker 2, Postion: attacker, Skill: 10, Is Injured?: false, 
+ Player Detail: Name: Attacker 3, Postion: attacker, Skill: 10, Is Injured?: false
+ ], 
+ @coach=#<Coach:0x007fb9e5145ae0>
+ > 
