@@ -12,20 +12,21 @@ class Manager
   def pick_a_team(squad)
     team = Team.new
 
-    formation = Team::THREE_FIVE_THREE
+    formation = Team::THREE_FOUR_THREE
 
-    # while a position quata is unfilled add best player for position from remaining pool of players who are eligible
-    # loop over the formation hash to fill each position quota
     puts "The formation requires the following number of players for each position"
+
     formation.each do |position, quota|
       puts "Formation requirement: #{quota} " + (quota == 1 ? "#{position}" : "#{position.to_s.pluralize}")
+      
+      eligible_players = squad.players.select {|p| p.position == position and !p.is_injured?}
+
+      raise "There are not enough fit players to field the formation" if eligible_players.count < quota
+     
       i = 1
       until i > quota
         team << squad.best_player(position)
-        # pluralize(2, "cat")
         position_pluralized = ((quota - i).to_s == 1 ? "#{postion}" : "#{position.to_s.pluralize}")
-        # puts "We still need to add #{quota - i} #{position_pluralized} to the team" unless (quota - i) == 0
-        # puts "We need to add another #{position} to the team" unless (quota - i) == 0
         puts "#{quota - i} : = > We still need to add #{quota - i}" + ((quota - i) == 1 ? " #{position} to the team" : " #{position.to_s.pluralize} to the team")
         i += 1
       end
@@ -37,9 +38,8 @@ end
 class Coach
 
   def calculate_form(player)
-    # player.form = player.skill # unless condition
-    player.injured == 1 ? (player.form = 0) : (player.form = player.skill)
-  end 
+    player.is_injured? ? (player.form = 0) : (player.form = player.skill)
+  end
 end
 
 class Player
@@ -52,7 +52,7 @@ class Player
   end
 
   def is_injured?
-    @injured == 1 ? true : false
+    @injured == 1
   end  
 
   def to_s
@@ -65,23 +65,27 @@ end
 
 class Team
 
+  attr_accessor :squad
+
   FOUR_FOUR_TWO = { goalkeeper: 1, attacker: 2, midfielder: 4, defender: 4 }
-  THREE_FIVE_THREE = { goalkeeper: 1, attacker: 3, midfielder: 5, defender: 3 }
+  THREE_FOUR_THREE = { goalkeeper: 1, attacker: 3, midfielder: 4, defender: 3 }
 
   def initialize
     @players = []
+    @eligible_players = []    
   end
 
   def <<(player)  # how to call it: team << player
     # raise an error if we can't add the player, 
     # e.g. if we already have the position filled
     # raise "Can't add #{position}"
-    @players << player
+    @eligible_players << player unless player.is_injured?
   end
 
   def to_s
     # iterate over all players and call their .to_s
-    @players.each {|p| "#{p.name}, #{p.position}"}
+    # @players.each {|p| "#{p.name}, #{p.position}"}
+    @players.map(&:to_s).join("\n")
   end
 end
 
@@ -91,12 +95,13 @@ class Squad
 
   def initialize
     @players = []
+    @eligible_players = []
     @coach = Coach.new
   end
 
   def <<(player)
     @coach.calculate_form(player) 
-    @players << player
+    @players << player #unless player.is_injured?
   end
 
   def best_player(position)
@@ -107,7 +112,6 @@ class Squad
     # what if player.nil? maybe raise an exception
     player
   end
-
 end
 
 def squad_with_players
