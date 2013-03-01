@@ -12,24 +12,19 @@ class Manager
   def pick_a_team(squad)
     team = Team.new
 
-    formation = { goalkeeper: 1, attacker: 2, midfielder: 4, defender: 4 }
+    formation = Team::FOUR_FOUR_TWO
 
     # while a position quata is unfilled add best player for position from remaining pool of players who are eligible
     # loop over the formation hash to fill each position quota
     puts "The formation requires the following number of players for each position"
     formation.each do |position, quota|
-      puts "Formation requirement: #{quota} #{position.to_s.pluralize}"
+      puts "Formation requirement: #{quota} " + (quota == 1 ? "#{position}" : "#{position.to_s.pluralize}")
       i = 1
       until i > quota
         team << squad.best_player(position)
-
         # pluralize(2, "cat")
-
         position_pluralized = ((quota - i).to_s == 1 ? "#{postion}" : "#{position.to_s.pluralize}")
-        puts position_pluralized
         # puts "We still need to add #{quota - i} #{position_pluralized} to the team" unless (quota - i) == 0
-
-
         # puts "We need to add another #{position} to the team" unless (quota - i) == 0
         puts "#{quota - i} : = > We still need to add #{quota - i}" + ((quota - i) == 1 ? " #{position} to the team" : " #{position.to_s.pluralize} to the team")
         i += 1
@@ -64,6 +59,8 @@ class Player
 end
 
 class Team
+
+  FOUR_FOUR_TWO = { goalkeeper: 1, attacker: 2, midfielder: 4, defender: 4 }
 
   def initialize
     @players = []
@@ -125,7 +122,9 @@ def squad_with_players
   squad
 end
 
-puts "Starting 'team_picker.rb' run\n"
+
+system("clear")
+puts "\n============================== \nStarting 'team_picker.rb' run\n============================== "
 puts "\nAssigning 22 players to a squad"
 squad = squad_with_players
 
