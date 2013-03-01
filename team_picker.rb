@@ -12,10 +12,7 @@ class Manager
   def pick_a_team(squad)
     team = Team.new
 
-    # Want a concept of 'formation' and use that to determine the team structure
-
-    formation = { goalkeeper: 1, attacker: 2, midfielder: 4, defender: 4 } # ruby 1.9+ only style
-    # formation = { :goalkeeper => 1 } # ruby 1.8 style (works with 1.9+)
+    formation = { goalkeeper: 1, attacker: 2, midfielder: 4, defender: 4 }
 
     # while a position quata is unfilled add best player for position from remaining pool of players who are eligible
     # loop over the formation hash to fill each position quota
@@ -38,13 +35,6 @@ class Manager
         i += 1
       end
     end
-
-    # puts "Here's the list of players not selected for the Team\n\n"
-    # puts squad.players.each { |player| player }    
-
-    # get the best players for every position from the squad
-    # and add them to the team
-    # team << player # add them to the team
     team
   end
 end
@@ -52,13 +42,9 @@ end
 class Coach
 
   def calculate_form(player)
-    #puts "Calculating Players (#{player}) form"
     # player.form = player.skill # unless condition
-    # use a super sexy ruby ternary operator here
     player.injured == 1 ? (player.form = 0) : (player.form = player.skill)
-    # puts "#{player.form}"
-  end
-  
+  end 
 end
 
 class Player
@@ -91,11 +77,9 @@ class Team
   end
 
   def to_s
-    # return every player and their position
     # iterate over all players and call their .to_s
     @players.each {|p| puts "#{p.name}, #{p.position}"}
   end
-
 end
 
 class Squad
@@ -118,7 +102,6 @@ class Squad
     @players.delete(player)
 
     # what if player.nil? maybe raise an exception
-    # remove the player from @players
     player
   end
 
@@ -147,7 +130,6 @@ puts "\nAssigning 22 players to a squad"
 squad = squad_with_players
 
 puts "\nHere's the list of players eligible for the Team\n"
-# puts squad.players.each { |player| player }
 
 manager = Manager.new()
 
