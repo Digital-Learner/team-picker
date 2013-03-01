@@ -12,7 +12,7 @@ class Manager
   def pick_a_team(squad)
     team = Team.new
 
-    formation = Team::FOUR_FOUR_TWO
+    formation = Team::THREE_FIVE_THREE
 
     # while a position quata is unfilled add best player for position from remaining pool of players who are eligible
     # loop over the formation hash to fill each position quota
@@ -51,16 +51,22 @@ class Player
     @name, @position, @skill, @injured = name, position, skill, injured
   end
 
+  def is_injured?
+    @injured == 1 ? true : false
+  end  
+
   def to_s
     # return a string representation of the player
     # e.g. "Defender 5, not injured, skill 4.7"
-    "Player Detail: Name: #{@name}, Postion: #{@position}, Skill: #{@skill}, Is Injured?: #{@injured}, Form: #{form}"
+    "%16s: Skill:%2d, Form:%2d %s" % [@name, @skill, @form, ("(Injured)" if is_injured?)]
+    # "Player Detail: Name: #{@name}, Postion: #{@position}, Skill: #{@skill}, Is Injured?: #{@injured}, Form: #{form}"
   end
 end
 
 class Team
 
   FOUR_FOUR_TWO = { goalkeeper: 1, attacker: 2, midfielder: 4, defender: 4 }
+  THREE_FIVE_THREE = { goalkeeper: 1, attacker: 3, midfielder: 5, defender: 3 }
 
   def initialize
     @players = []
@@ -75,7 +81,7 @@ class Team
 
   def to_s
     # iterate over all players and call their .to_s
-    @players.each {|p| puts "#{p.name}, #{p.position}"}
+    @players.each {|p| "#{p.name}, #{p.position}"}
   end
 end
 
@@ -129,6 +135,7 @@ puts "\nAssigning 22 players to a squad"
 squad = squad_with_players
 
 puts "\nHere's the list of players eligible for the Team\n"
+puts squad.players.each { |player| player }
 
 manager = Manager.new()
 
