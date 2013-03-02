@@ -14,17 +14,18 @@ class Manager
     formation = Team::THREE_FOUR_THREE
 
     puts "The formation requires the following number of players for each position"
+    puts formation.map {|k,v| (v == 1 ? "#{v} #{k.to_s.humanize}" : "#{v} #{k.to_s.pluralize.humanize}")}
 
     formation.each do |position, quota|
-      puts "Formation requirement: #{quota} " + (quota == 1 ? "#{position}" : "#{position.to_s.pluralize}")
-
-      # raise "There are not enough fit players to field the formation" if eligible_players.count < quota
       raise "There are not enough fit players to field the formation" if squad.eligible_players(position).count < quota
+      position_pluralized = (quota == 1 ? "#{position}" : "#{position.to_s.pluralize}")
+      dbl_underline = ((position_pluralized.length + 10).times { |i| print "="})
+
+      puts "\nSelecting #{position_pluralized}\n"
      
       i = 1
-      until i > quota
+      until i > quota # loop until the quota is reached
         team << squad.best_player(position)
-        position_pluralized = ((quota - i).to_s == 1 ? "#{postion}" : "#{position.to_s.pluralize}")
         puts "#{quota - i} : = > We still need to add #{quota - i}" + ((quota - i) == 1 ? " #{position} to the team" : " #{position.to_s.pluralize} to the team")
         i += 1
       end
@@ -36,7 +37,7 @@ end
 class Coach
 
   def calculate_form(player)
-    player.is_injured? ? (player.form = 0) : (player.form = player.skill)
+    player.is_injured? ? (player.form = 0) : (player.form = player.skill * (rand(10) - 1).abs)
   end
 end
 
@@ -57,7 +58,6 @@ class Player
     # return a string representation of the player
     # e.g. "Defender 5, not injured, skill 4.7"
     "%16s: Skill:%2d, Form:%2d %s" % [@name, @skill, @form, ("(Injured)" if is_injured?)]
-    # "Player Detail: Name: #{@name}, Postion: #{@position}, Skill: #{@skill}, Is Injured?: #{@injured}, Form: #{form}"
   end
 end
 
@@ -83,7 +83,7 @@ class Team
   def to_s
     # iterate over all players and call their .to_s
     # @players.each {|p| "#{p.name}, #{p.position}"}
-    @players.map(&:to_s).join("\n")
+    @eligible_players.map(&:to_s).join("\n")
   end
 end
 
@@ -106,13 +106,9 @@ class Squad
     eligible_players = players.select {|p| p.position == position and !p.is_injured?} 
   end
 
-
-
   def best_player(position)
-
     player = @players.select{|p| p.position == position}.sort_by{|p| p.form}.last
     @players.delete(player)
-
     # what if player.nil? maybe raise an exception
     player
   end
@@ -122,16 +118,16 @@ def squad_with_players
   # randomise the injury status of players - use 1 for injured, 0 for uninjured
   squad = Squad.new
   2.times do |i|
-    squad << Player.new("Goalkeeper #{i}", :goalkeeper, rand(10) + 1, rand(2))
+    squad << Player.new("Goalkeeper #{i}", :goalkeeper, rand(10) + 1, rand(5))
   end
   8.times do |i|
-    squad << Player.new("Defender #{i}", :defender, rand(10) + 1, rand(2))
+    squad << Player.new("Defender #{i}", :defender, rand(10) + 1, rand(5))
   end
   8.times do |i|
-    squad << Player.new("Midfielder #{i}", :midfielder, rand(10) + 1, rand(2))
+    squad << Player.new("Midfielder #{i}", :midfielder, rand(10) + 1, rand(5))
   end
   4.times do |i|
-    squad << Player.new("Attacker #{i}", :attacker, rand(10) + 1, rand(2))
+    squad << Player.new("Attacker #{i}", :attacker, rand(10) + 1, rand(5))
   end  
   squad
 end
@@ -147,7 +143,7 @@ puts squad.players.each { |player| player }
 
 manager = Manager.new()
 
-puts "\nYour manager #{manager} will now pick a team from 'squad'"
+puts "\nYour manager will now pick a team from 'squad'"
 team = manager.pick_a_team(squad)
 puts "\nOur chosen team:"
 puts team
