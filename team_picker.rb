@@ -8,7 +8,6 @@ class Manager
   include ActionView::Helpers::TextHelper
 
   attr_reader :squad
-
   def pick_a_team(squad)
     team = Team.new
 
@@ -19,9 +18,12 @@ class Manager
     formation.each do |position, quota|
       puts "Formation requirement: #{quota} " + (quota == 1 ? "#{position}" : "#{position.to_s.pluralize}")
       
-      eligible_players = squad.players.select {|p| p.position == position and !p.is_injured?}
+      # eligible_players = squad.players.select {|p| p.position == position and !p.is_injured?}
 
-      raise "There are not enough fit players to field the formation" if eligible_players.count < quota
+      # squad.eligible_players(position)
+
+      # raise "There are not enough fit players to field the formation" if eligible_players.count < quota
+      raise "There are not enough fit players to field the formation" if squad.eligible_players(position).count < quota
      
       i = 1
       until i > quota
@@ -104,6 +106,12 @@ class Squad
     @players << player #unless player.is_injured?
   end
 
+  def eligible_players(position)
+    eligible_players = players.select {|p| p.position == position and !p.is_injured?} 
+  end
+
+
+
   def best_player(position)
 
     player = @players.select{|p| p.position == position}.sort_by{|p| p.form}.last
@@ -134,7 +142,7 @@ end
 
 
 system("clear")
-puts "\n============================== \nStarting 'team_picker.rb' run\n============================== "
+puts "\n============================== \nStarting #{$0} run\n============================== "
 puts "\nAssigning 22 players to a squad"
 squad = squad_with_players
 
