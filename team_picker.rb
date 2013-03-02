@@ -17,10 +17,6 @@ class Manager
 
     formation.each do |position, quota|
       puts "Formation requirement: #{quota} " + (quota == 1 ? "#{position}" : "#{position.to_s.pluralize}")
-      
-      # eligible_players = squad.players.select {|p| p.position == position and !p.is_injured?}
-
-      # squad.eligible_players(position)
 
       # raise "There are not enough fit players to field the formation" if eligible_players.count < quota
       raise "There are not enough fit players to field the formation" if squad.eligible_players(position).count < quota
